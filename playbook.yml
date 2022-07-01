@@ -1,0 +1,30 @@
+- hosts: docker
+  gather_facts: no
+
+  tasks:
+  - name: create directory
+    file:
+      path: /zzz
+      state: directory
+      mode: '0755'
+
+  - name: command sample
+    shell: hostname; ls -C /
+    register: result_ls
+
+  - name: print result
+    debug:
+      msg: "{{ result_ls }}"
+
+  # https://docs.ansible.com/ansible/latest/collections/community/docker/docker_container_exec_module.html
+  #- name: Run a simple command (command)
+  #  community.docker.docker_container_exec:
+  #    container: foo
+  #    command: /bin/bash -c "ls -lah"
+  #    chdir: /root
+  #  register: result
+  #
+  #- name: Print stdout
+  #  debug:
+  #    var: result.stdout
+
